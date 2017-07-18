@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Sign-Up</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="login-content" padding>
+    <div class="login-box">
+
+        <form (ngSubmit)="register(myForm)" [formGroup]="myForm">
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>Username/Email Id <span>*</span>  </ion-label>
+                    <ion-input name="uName" formControlName="uName"></ion-input>
+                </ion-item>
+                <p [hidden]="myForm.controls.uName.valid" danger padding-left style="color: red" >Username cannot be empty</p>
+
+
+
+                <ion-item>
+                    <ion-label floating>First Name</ion-label>
+                    <ion-input name="fName" formControlName="fName" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Middle Name</ion-label>
+                    <ion-input name="mName" formControlName="mName" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Last Name <span>*</span></ion-label>
+                    <ion-input type="text" name="lName" formControlName="lName"></ion-input>
+                </ion-item>
+                <p [hidden]="myForm.controls.lName.valid"  style="color: red" padding-left>Lastname cannot be empty</p>
+
+                <ion-item>
+                    <ion-label floating>Gender</ion-label>
+                    <ion-select name="gender" formControlName="gender">
+                        <ion-option value="f">Female</ion-option>
+                        <ion-option selected value="m">Male</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Cell Phone <span>*</span></ion-label>
+                    <ion-input type="number" maxlength="10" name="cPhone"  formControlName="cPhone"></ion-input>
+                </ion-item>
+                <p [hidden]="myForm.controls.cPhone.valid" danger padding-left style="color: red" >Cell Phone cannot be empty</p>
+
+                <ion-item>
+                    <ion-label floating>DL Number <span>*</span></ion-label>
+                    <ion-input type="text" name="DLNumber"  formControlName="DLNumber"></ion-input>
+                </ion-item>
+                <p [hidden]="myForm.controls.DLNumber.valid" danger padding-left style="color: red" >DLNumber cannot be empty</p>
+
+                <ion-item>
+                    <ion-label floating>Address Line 1</ion-label>
+                    <ion-input type="text" aria-multiline="true" name="Add1" formControlName="Add1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Address Line 2</ion-label>
+                    <ion-input type="text" name="Add2" formControlName="Add2"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>City</ion-label>
+                    <ion-input type="text" name="City" formControlName="City"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>County</ion-label>
+                    <ion-input type="text" name="County" formControlName="County"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>ZipCode</ion-label>
+                    <ion-input type="text" name="zpCode" formControlName="zpCode"></ion-input>
+                </ion-item>
+            </ion-list>
+            <div text-center>
+                <button block [disabled]="disableButton(myForm)" ion-button large>Sign-Up</button>
+            </div>
+        </form>
+    </div>
+</ion-content>

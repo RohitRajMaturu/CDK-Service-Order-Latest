@@ -1,0 +1,13 @@
+.item-input ion-input, .item-input ion-textarea {
+    position: relative;
+}
+ion-input::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    content: "";
+}
