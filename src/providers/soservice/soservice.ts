@@ -20,8 +20,9 @@ export class SoserviceProvider {
     console.log('Hello SoserviceProvider Provider');
   }
 load() {
- 
-  return this._http.get('http://172.31.110.225:81/api/Vehicle/GetUserVehicles/6').map(res => res);
+ console.log('load fired');
+  return this._http.get('http://172.31.109.204:81/api/Location/GetAllLocations').map(res => res.json());
+  //http://172.31.110.225:81/api/Vehicle/GetUserVehicles/6
   // if (this.data) {
   //   // already loaded data
   //   console.log('from service');
@@ -37,6 +38,7 @@ load() {
   //     .map(res => res.json());
   // });
 }
+
   }
 
   // don't have the data yet

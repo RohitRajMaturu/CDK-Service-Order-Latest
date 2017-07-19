@@ -1,5 +1,11 @@
 {
   "name": "cdk-service-order",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+   "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://172.31.109.204:81/"
+    }
+  ]
 }
