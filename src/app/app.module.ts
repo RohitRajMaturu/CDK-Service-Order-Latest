@@ -3,13 +3,15 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { FormsModule,Validators } from '@angular/forms';
 import { AuthService } from './../providers/auth-service';
+import { commonAPIService } from '../providers/commonAPI-services';
+import { Http, Response, HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { Signup } from '../pages/Signup/Signup';
 import { LoginPage } from '../pages/login/login';
-
+import { VehiclePage } from '../pages/vehicle/vehicle';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,12 +22,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     Signup,
-    LoginPage
+    LoginPage,
+    VehiclePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     FormsModule,
+    HttpModule
     //LoginPage
   ],
   bootstrap: [IonicApp],
@@ -34,13 +38,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     Signup,
-    LoginPage
+    LoginPage,
+    VehiclePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthService
+    AuthService,
+    commonAPIService
   ]
 })
 export class AppModule { }

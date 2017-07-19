@@ -1,0 +1,84 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Vehicle</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div>
+    <ion-item>
+      <ion-label floating>VIN </ion-label>
+      <ion-icon name="qr-scanner" style="margin-top:10%" item-right item-down></ion-icon>
+      <ion-input [(ngModel)]="VIN"></ion-input>
+
+    </ion-item>
+    <button ion-button class="submit-btn" full type="submit" (click)="Decode()">Decode</button>
+  </div>
+  <br>
+  <div [hidden]="ShowVehcileDetails()">
+    <h2>Vehicle Details</h2>
+
+    <form inset>
+      <ion-list *ngFor="let vehicle of  vehicleInfo;let i = index">
+        <!--<ion-item *ngFor="let vehicle of  vehicleInfo;let i = index">
+          <ion-label stacked>VIN</ion-label>
+          <ion-input name="uVIN" [(ngModel)]="vehicle.VIN" [readonly]="isReadonly()" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Make</ion-label>
+          <ion-input name="uMake" [(ngModel)]="vehicle.Make" [readonly]="isReadonly()">Audi</ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Model</ion-label>
+          <ion-input name="uModel" [(ngModel)]="vehicle.Model" [readonly]="isReadonly()">Audi R 8</ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Year</ion-label>
+          <ion-input name="uYear" [(ngModel)]="vehicle.Year" [readonly]="isReadonly()">2014</ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Color</ion-label>
+          <ion-input name="uColor" [(ngModel)]="vehicle.Color" [readonly]="isReadonly()">Red</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Transmission</ion-label>
+          <ion-input name="uTrans" [(ngModel)]="vehicle.Transmission" readonly]="isReadonly()">Automatic</ion-input>
+        </ion-item>-->
+        <ion-item>
+          <ion-label stacked>VIN</ion-label>
+          <ion-input name="uVIN" [(ngModel)]="vehicle.userId" [readonly]="isReadonly()"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>ID</ion-label>
+          <ion-input name="id" [(ngModel)]="vehicle.id" [readonly]="isReadonly()"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Title</ion-label>
+          <ion-input name="utitle" [(ngModel)]="vehicle.title" [readonly]="isReadonly()"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Body</ion-label>
+          <ion-input name="ubody" [(ngModel)]="vehicle.body" [readonly]="isReadonly()"></ion-input>
+        </ion-item>
+      </ion-list>
+      <div class="item" style="text-align: center;">
+        <button style="width: 35%" ion-button large class="button" (click)="AddVehcileDetails(vehicle)">
+        Add
+      </button>
+
+        <button ion-button large style="width: 35%" class="button">
+         Cancel
+      </button>
+
+      </div>
+    </form>
+  </div>
+</ion-content>
