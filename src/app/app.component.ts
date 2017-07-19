@@ -3,17 +3,19 @@ import { commonAPIService } from '../providers/commonAPI-services';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SoserviceProvider } from '../providers/soservice/soservice';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { Signup } from '../pages/Signup/Signup';
 import { LoginPage } from '../pages/login/login';
 import{VehiclePage} from '../pages/vehicle/vehicle';
+import { SOPage } from '../pages/so/so';
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [commonAPIService]
+  providers: [commonAPIService,SoserviceProvider]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -30,6 +32,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
       { title: 'Sign-Up', component: Signup },
+      { title: 'Service Order', component: SOPage},
       { title: 'Add Vehicle', component: VehiclePage }
     ];
 

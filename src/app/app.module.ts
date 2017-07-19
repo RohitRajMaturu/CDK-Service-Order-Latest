@@ -12,9 +12,11 @@ import { ListPage } from '../pages/list/list';
 import { Signup } from '../pages/Signup/Signup';
 import { LoginPage } from '../pages/login/login';
 import { VehiclePage } from '../pages/vehicle/vehicle';
+import { SOPage } from '../pages/so/so';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SoserviceProvider } from '../providers/soservice/soservice';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     Signup,
     LoginPage,
-    VehiclePage
+    VehiclePage,
+    SOPage
   ],
   imports: [
     BrowserModule,
@@ -39,14 +42,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     Signup,
     LoginPage,
-    VehiclePage
+    VehiclePage,
+    SOPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
-    commonAPIService
+    commonAPIService,
+    SoserviceProvider
   ]
 })
 export class AppModule { }

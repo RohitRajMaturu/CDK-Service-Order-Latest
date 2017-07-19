@@ -1,0 +1,145 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Service Order</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="http://placehold.it/300x200" />
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <div>
+    <form #soform="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <!-- (ngSubmit) = "onSubmit(soform.value)" -->
+            <!-- <ion-item>
+              <ion-label fixed>Vehicle</ion-label>
+              <ion-input type="text" placeholder="Email" name="email" ></ion-input>
+            </ion-item> -->
+            <ion-item>
+              <ion-label fixed>Location</ion-label>
+              <ion-select (ionChange)='locationChange()' [(ngModel)]="soDetails.selectedLocation" name="Location">
+                <ion-option *ngFor="let item of items;" [value]="item.title">{{item.title}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label fixed>Vehicle</ion-label>
+              <ion-select [(ngModel)]="soDetails.selectedVehicle" name="Vehicle">
+                <ion-option *ngFor="let vehicle of items;" [value]="vehicle.title">{{vehicle.title}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label fixed>Dealer</ion-label>
+              <ion-select [(ngModel)]="soDetails.selectedDealer" name="Dealer">
+                <ion-option *ngFor="let dealer of Dealers;" [value]="dealer.title">{{dealer.title}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <h4>Services Provided</h4>
+
+            <ion-item *ngFor="let cbItem of cbArr">
+              <!-- <label for="options">Options :</label> -->
+              <!-- <div *ngFor="let cbItem of cbArr"> -->
+                <label>
+              <input type="checkbox"
+                    name="options"
+                    value="{{cbItem}}"
+                    [checked]="cbChecked.indexOf(cbItem) >= 0"
+                    (change)="updateCheckedOptions(cbItem, $event)"/>
+              {{cbItem}}
+            </label>
+            <!-- </div> -->
+            </ion-item>
+
+            <!-- <ion-item>
+               <!-- <ion-label></ion-label> 
+               </ion-item> -->
+            <!-- <ion-item>
+               <ion-label>Engine Oil Change</ion-label>
+                  <ion-checkbox color="dark" checked="true"></ion-checkbox>
+            </ion-item> -->
+            <!-- 
+            <ion-item *ngFor="let item of items" name="item">
+                <label class="checkbox">
+                    <ion-checkbox color="dark" checked="true"> Item {{item.title}} </ion-checkbox>
+                  <!-- <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked"> 
+                </label>                   
+           </ion-item> 
+            
+          (click)="edit($event,item)"
+        
+        (click)="toggle($event,item)"-->
+
+            <!-- <ion-label ion-item *ngFor="let item of items" >
+                <ion-label>{{item.title}}</ion-label>
+                <ion-checkbox item-right [(ngModel)]="soDetails.selectedItem" name="chkItems"></ion-checkbox>
+              </ion-label>  -->
+            <!-- <ion-item *ngFor="let item of items" name="item">
+                <label class="checkbox">
+                    <ion-checkbox color="dark" checked="true"> Item {{item.title}} </ion-checkbox>
+                    <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked"> 
+                </label>                   
+           </ion-item>  -->
+
+            <!-- <ion-item *ngFor="let t of items">
+            <!-- <h2 [ngClass]="t.title">{{t.title}} {{t.title}} | {{ t.title}}</span></h2> 
+            <label>
+                <input type="checkbox" value="{{t}}" [checked]="cbChecked.indexOf('t') >= 0" (change)="updateCheckedOptions(t, $event)" />
+            </label>
+      </ion-item>
+        (ionChange)="updateCheckedOptions(item, $event)" -->
+            <ion-item>
+              <ion-label style="top:0%">Comments</ion-label>
+              <ion-textarea [(ngModel)]="soComments" value="soComments" type="text" class="textarea1" rows="5" placeholder="Enter Comments" name="comments" style="height:40%;"></ion-textarea>
+            </ion-item>
+            <h2>Schedule Appointment</h2>
+            <ion-item>
+              <ion-label>Date</ion-label>
+              <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM/DD/YYYY" [(ngModel)]="soDate" name="date"></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>Time</ion-label>
+              <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="soTime" name="time"></ion-datetime>
+            </ion-item>
+
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" (click)="createSO()">Login</button>
+          <button ion-button class="register-btn" block clear (click)="cancelSO()">Cancel</button>
+
+        </ion-col>
+      </ion-row>
+
+    </form>
+    </div>
+</ion-content>
+<!-- <ion-content class="login-content" padding>
+<ion-list>
+
+  <ion-item>
+    <ion-label fixed>Username</ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>Password</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+
+</ion-list>
+<div padding>
+  <button block>Sign In</button>
+</div>
+</ion-content> -->
