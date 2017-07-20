@@ -4,7 +4,7 @@ import { commonAPIService } from '../../providers/commonAPI-services';
 import { FormBuilder, Validators } from '@angular/forms'
 import { Observable } from 'rxjs/Observable';
 import { HomePage } from '../home/home';
-
+import { AuthService } from '../../providers/auth-service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @Component({
@@ -24,16 +24,20 @@ export class VehiclePage implements OnInit {
   showVINForm: boolean = false;
   showManualEntryform: boolean = false;
   scanResult: any;
-
+  createSuccess = true;
+  userId = '';
+  userName = '';
+  isDealer:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private _vinDecoderService: commonAPIService, private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController, private builder: FormBuilder, private barcodeScanner: BarcodeScanner) {
+    public loadingCtrl: LoadingController, private builder: FormBuilder, private barcodeScanner: BarcodeScanner,public auth: AuthService) {
     this.myForm = builder.group({
       'VIN': [''], 'vID': [''], 'Model': [''], 'Make': [''], 'Year': [''], 'Color': [''], 'Transmission': ['']
     })
     this.myManualForm = builder.group({
       'VIN': [''], 'vID': [''], 'Model': [''], 'Make': [''], 'Year': [''], 'Color': [''], 'Transmission': ['']
     })
+    this.assignValues();
   }
 
 
@@ -41,7 +45,13 @@ export class VehiclePage implements OnInit {
 
   }
 
-
+ assignValues()
+  {
+   let info = this.auth.getUserInfo();
+   this.userId = info['userId'];
+   this.userName = info['userName'];
+   this.isDealer=info['isDealer'];
+  }
 
 
   public Decode() {
@@ -63,15 +73,11 @@ export class VehiclePage implements OnInit {
   public isReadonly() { return true; }
 
   public ScanBarCode() {
-
     this.barcodeScanner.scan().then((barcodeData) => {
       // Success! Barcode data is here
-      alert(JSON.stringify(barcodeData));
       this.scanResult = JSON.stringify(barcodeData.text);
-
-      alert(this.scanResult);
-
-      this.getVehicledetails(this.scanResult);
+       this.myForm.controls.VIN=this.scanResult
+      this.getVehicledetails('3500610051128');
     }, (err) => {
       // An error occurred
     });
@@ -94,6 +100,9 @@ export class VehiclePage implements OnInit {
 
         this.VINDetails = result;
         this.VINDetails = Array.from(this.VINDetails);
+        if(result.lenght<0){
+          alert('No data fetched');
+        }
       },
       err => {
         console.error("Error : " + err);
@@ -102,28 +111,45 @@ export class VehiclePage implements OnInit {
         console.log('getData completed' + this.VINDetails);
       });
   }
-  public AddVehcileDetails(vehicle) {
+  public AddVehcileDetails(myManualForm) {
 
-    console.log(vehicle);
+    console.log(myManualForm);
     var postVehicleData = {
-      UserId: 6,
-      Make: vehicle[0].Make,
-      Model: vehicle[0].Model,
-      Color: vehicle[0].Color,
-      Year: vehicle[0].Year,
-      Transmission: vehicle[0].Transmission,
-      VIN: vehicle[0].VIN
+      UserId: this.userId,
+      Make: myManualForm.value.Make,
+      Model: myManualForm.value.Model,
+      Color: myManualForm.value.Color,
+      Year: myManualForm.value.Year,
+      Transmission: myManualForm.value.Transmission,
+      VIN: myManualForm.value.VIN
     }
-    //this.showLoading()
-    //console.log(postVehicleData);
-    this._vinDecoderService.createVehicleDetails(postVehicleData);
-    alert('success');
-    this.navCtrl.setRoot(HomePage);
+
+    this._vinDecoderService.createVehicleDetails(postVehicleData).subscribe(allowed => {
+
+      if (allowed.success) {
+
+        this.showPopup('Success', 'Vehicle added successfully');
+
+      } else {
+        //Observable.throw("Could not create Vehicle");
+        this.showError('Failed');
+      }
+    },
+      error => {
+        this.showError(error);
+      }
+    );
   }
 
   public showVINDecoder() {
     this.showVINForm = !this.showVINForm;
   }
+
+  public showVINwhenEntered(myForm) {
+    this.getVehicledetails(myForm.value.VIN);
+  }
+
+
 
   public showSelectvehManually() {
     this.showManualEntryform = !this.showManualEntryform
@@ -137,15 +163,35 @@ export class VehiclePage implements OnInit {
     this.loading.present();
   }
 
+
+  showPopup(title, text) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: text,
+      buttons: [
+        {
+          text: 'OK',
+          handler: data => {
+            if (this.createSuccess) {
+              this.navCtrl.setRoot(HomePage);
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   showError(text) {
     this.loading.dismiss();
 
     let alert = this.alertCtrl.create({
-      title: 'Fail',
+      title: 'Failed to add vehicle details',
       subTitle: text,
       buttons: ['OK']
     });
     alert.present(prompt);
   }
+
 
 }

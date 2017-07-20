@@ -20,9 +20,9 @@
       <!-- <ion-label  hidden="true" >{{so.VehicleId}}</ion-label> -->
     </ion-card-header>
     <ion-card-content>
-      <img style="height: 150px;width: 1500px;" src="https://services.edmunds-media.com/image-service/media-ed/ximm/?quality=85&image=/non-make/ot/ot_32712129_300.jpg"
+      <img style="height: 150px;width: 1500px;" src="../assets/Images/ot_32712129_300.jpg"
       />
-      <b>Comments:{{so.Comments}}</b>
+      <p>Comments:{{so.Comments}}</p>
       <br>
       <b>Status: {{so.Status.StatusDesc}}</b>
       <button ion-button small  (click)="ViewselectedVehicle(so.ServiceOrderId)">View</button>

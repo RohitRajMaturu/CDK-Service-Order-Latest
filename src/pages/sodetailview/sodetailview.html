@@ -36,9 +36,10 @@
       <br>
       <b>Services Opted:{{so.ServicesOpted}}</b>
       <br>
-
-
-
+      <b>Schedule Details: {{so.ScheduleDetails}}</b>
+      <br>
+      <b>Cellphone : {{so.cellphone}}</b>
+      <br>
       <b style="color:brown">Status: {{so.Status.StatusDesc}}</b>
       <br>
       <b>Comments:{{so.Comments}}</b>
@@ -46,18 +47,36 @@
 
     </ion-card-content>
 
-    <ion-item *ngIf="so.Status.StatusId != 4">
-      <ion-label style="top:0%">Comments</ion-label>
+    <ion-item *ngIf="so.Status.StatusId != 4 && so.Status.StatusId != 5">
+     <ion-label style="top:0%"><b>Comments</b></ion-label>
       <ion-textarea [(ngModel)]="soComments" value="" type="text" class="textarea1" rows="5" placeholder="Enter Comments"
         name="soComments" style="height:40%;"></ion-textarea>
+      
     </ion-item>
-
-    <ion-row *ngIf="so.Status.StatusId != 4">
+    <ion-item *ngIf="so.Status.StatusId != 4 && so.Status.StatusId != 5">
+    <button ion-button class="submit-btn" full type="submit" (click)="UpdateComments()">Submit</button>
+     </ion-item>
+    <ion-row *ngIf="isDealer == 1 && so.Status.StatusId==1">
       <ion-col class="signup-col">
-        <button ion-button class="submit-btn" full type="submit" (click)="UpdateComments()">Submit</button>
-        <button ion-button class="register-btn" block clear (click)="cancelSO()">Cancel</button>
-
+        <button ion-button class="submit-btn" full type="submit" (click)="AcceptSO()">Accept SO</button>
+        <button ion-button class="register-btn" block clear (click)="RejectSO()">Reject SO</button>
       </ion-col>
     </ion-row>
+      <ion-row *ngIf="so.Status.StatusId == 1 && isDealer == 0">
+      <ion-col class="signup-col">      
+        <button ion-button class="register-btn" block clear (click)="cancelSO()">Cancel SO</button>        
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="isDealer == 1 && so.Status.StatusId==2">
+      <ion-col class="signup-col">      
+        <button ion-button class="register-btn" block clear (click)="inservice()">In Service</button>        
+      </ion-col>
+    </ion-row>
+     <ion-row *ngIf="isDealer == 1 && so.Status.StatusId==3">
+      <ion-col class="signup-col">      
+        <button ion-button class="register-btn" block clear (click)="servicedone()">Service Done</button>        
+      </ion-col>
+    </ion-row>
+     <button ion-button class="register-btn" block clear (click)="cancel()">Cancel</button>
   </ion-card>
 </ion-content>

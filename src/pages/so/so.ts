@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HomePage } from '../../pages/home/home'
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,AlertController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
 import { SoserviceProvider } from '../../providers/soservice/soservice';
 
@@ -26,21 +26,23 @@ export class SOPage {
   Locations: any;
   vehicles: any;
   chkedvalues: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthService, public _SoserviceProvider: SoserviceProvider) {
+  userId = '';
+  userName = '';
+  isDealer:boolean;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthService, public _SoserviceProvider: SoserviceProvider,private alertCtrl: AlertController) {
     // If we navigated to this page, we will have an item available as a nav param
     this.cbArr = [];
     this.soComments = "";
     this.chkedvalues = "";
     this.cbChecked = [];
-    this.selectedLocation = '';  //navParams.get('item');
-    this.selectedDealer = ''; //navParams.get('dealer');
-    this.selectedVehicle = ''; //navParams.get('vehicle');
+    this.selectedLocation = '';
+    this.selectedDealer = '';
+    this.selectedVehicle = ''; 
     this.Dealers = [];
-
+    this.assignValues();
     this.loadCheckBoxValues();
     this.Locations = this.loadLocations();
     this.vehicles = this.loadUserVehicles();
-    // this.selectedCheckbox=navParams.get('item');
 
     // Let's populate this page with some filler content for funzies
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
@@ -56,6 +58,15 @@ export class SOPage {
     this.soDate = new Date().toISOString();
     this.soTime = new Date().toISOString();
   }
+
+ assignValues()
+  {
+   let info = this.auth.getUserInfo();
+   this.userId = info['userId'];
+   this.userName = info['userName'];
+   this.isDealer=info['isDealer'];
+  }
+
 
   loadLocations() {
     this._SoserviceProvider.load().subscribe(
@@ -82,17 +93,13 @@ export class SOPage {
   }
 
   loadUserVehicles() {
-    this._SoserviceProvider.loadUserVehicles(6).subscribe(
+    console.log(this.userId);
+    this._SoserviceProvider.loadUserVehicles(this.userId).subscribe(
       result => {
 
         this.vehicles = result;
-        console.log('result' + result);
-        if (result.length > 1) {
-          this.vehicles = Array.from(this.vehicles);
-        }
-        else {
-          this.vehicles = Array.of(this.vehicles);
-        }
+        console.log('result' + result);    
+        this.vehicles = Array.from(this.vehicles);               
         console.log('so' + this.vehicles);
       },
       err => {
@@ -128,10 +135,6 @@ export class SOPage {
 
   }
 
-  // loadCheckBoxValues() {
-  //   console.log(this.cbChecked);
-  //   this.cbArr = ['OptionA', 'OptionB', 'OptionC'];
-  // }
 
   locationChange() {
     var selectedLocation = this.soDetails.selectedLocation;
@@ -196,31 +199,31 @@ var vehicleId=this.soDetails.selectedVehicle;
 var dealerId=this.soDetails.selectedDealer;
 var locationId=this.soDetails.selectedLocation;
     var postsoData={
-UserId :6,
+UserId :this.userId,
 VehicleId:vehicleId,
 DealerId:dealerId,
 ServicesOpted:this.chkedvalues,
-Comments:soComments,
+Comments:this.userName+":"+soComments,
 Status:1,
 ScheduleDetails:soDate+'T'+soTime       
     }
 
     this._SoserviceProvider.postsoDetails(postsoData);
-    // var chkedvalues=this.cbChecked
-    // this.auth.login(this.soDetails).subscribe(allowed => {
-    //   if (allowed) {
-    //     this.navCtrl.setRoot(HomePage);
-    //   } else {
-    //     //this.showError("Access Denied");
-    //   }
-    // },
-    //   error => {
-    //     // this.showError(error);
-    //   });
+    this.showMessage('SO Created successfully');
+    this.navCtrl.setRoot(HomePage);
   }
+   showMessage(text) {        
+
+        let alert = this.alertCtrl.create({
+            title: 'Success',
+            subTitle: text,
+            buttons: ['OK']
+        });
+        alert.present(prompt);
+    }
 
   public cancelSO() {
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(HomePage);
   }
 
   itemTapped(event, item) {

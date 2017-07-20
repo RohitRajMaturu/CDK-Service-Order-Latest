@@ -8,11 +8,11 @@ import { AuthService } from '../../providers/auth-service';
 export class HomePage {
   username = '';
   email = '';
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,private auth: AuthService) {
   }
 
   testmethod() {
-  //   , private auth: AuthService
+   
   //   let info = this.auth.getUserInfo();
   //   if (info != undefined) {
   //     this.username = info['userId'];

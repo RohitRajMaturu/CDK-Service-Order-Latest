@@ -25,19 +25,19 @@
       </div>
     </ion-card-header>
     <ion-card-content>
-      <img src="https://services.edmunds-media.com/image-service/media-ed/ximm/?quality=85&image=/non-make/ot/ot_32712129_300.jpg"
-      />
+      <img [src]="car.ImageUrl" />
+
       <b>Make:{{car.Make}}</b><br>
       <b>Model:{{car.Model}}</b><br>
       <b>VIN:{{car.VIN}}</b><br>
       <b>Year:{{car.Year}}</b>
       <br>
       <b>Color:{{car.Color}}</b><br>
-      <b>Transmission: {{car.TransmissionName}}</b>
+      <b>Transmission: {{car.Transmission}}</b>
     </ion-card-content>
   </ion-card>
 
-<button ion-button full class="button" (click)="goToAddVehcilePage()">
+  <button ion-button full class="button" (click)="goToAddVehcilePage()">
         Add New Vehicle
       </button>
 

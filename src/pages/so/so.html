@@ -9,8 +9,8 @@
 <ion-content padding>
   <ion-row>
     <ion-col></ion-col>
-    <ion-col width-67>
-      <img src="http://placehold.it/300x200" />
+    <ion-col width-90>
+      <img src="../assets/Images/repairing-a-bumper-bar-400x400.jpg" />
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
@@ -33,7 +33,7 @@
             <ion-item>
               <ion-label fixed>Vehicle</ion-label>
               <ion-select [(ngModel)]="soDetails.selectedVehicle" name="Vehicle">
-                <ion-option *ngFor="let vehicle of vehicles;" [value]="vehicle.VehicleId">{{vehicle.Make}} | {{vehicle.Model}} | {{vehicle.Year}} </ion-option>
+                <ion-option *ngFor="let vehicle of vehicles;" [value]="vehicle.VehicleId">{{vehicle.Make}}  {{vehicle.Model}}  {{vehicle.Year}} </ion-option>
               </ion-select>
             </ion-item>
             <ion-item>

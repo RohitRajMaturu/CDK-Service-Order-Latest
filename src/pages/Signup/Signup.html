@@ -13,12 +13,16 @@
         <form (ngSubmit)="register(myForm)" [formGroup]="myForm">
             <ion-list>
                 <ion-item>
-                    <ion-label floating>Username/Email Id <span>*</span>  </ion-label>
+                    <ion-label floating>Username <span>*</span> </ion-label>
                     <ion-input name="uName" formControlName="uName"></ion-input>
                 </ion-item>
-                <p [hidden]="myForm.controls.uName.valid" danger padding-left style="color: red" >Username cannot be empty</p>
+                <p [hidden]="myForm.controls.uName.valid" danger padding-left style="color: red">Username cannot be empty</p>
 
-
+                <ion-item>
+                    <ion-label floating>Email Id<span>*</span> </ion-label>
+                    <ion-input name="uEmail" formControlName="uEmail"></ion-input>
+                </ion-item>
+                <p [hidden]="myForm.controls.uName.valid" danger padding-left style="color: red">Email cannot be empty</p>
 
                 <ion-item>
                     <ion-label floating>First Name</ion-label>
@@ -32,7 +36,7 @@
                     <ion-label floating>Last Name <span>*</span></ion-label>
                     <ion-input type="text" name="lName" formControlName="lName"></ion-input>
                 </ion-item>
-                <p [hidden]="myForm.controls.lName.valid"  style="color: red" padding-left>Lastname cannot be empty</p>
+                <p [hidden]="myForm.controls.lName.valid" style="color: red" padding-left>Lastname cannot be empty</p>
 
                 <ion-item>
                     <ion-label floating>Gender</ion-label>
@@ -43,15 +47,15 @@
                 </ion-item>
                 <ion-item>
                     <ion-label floating>Cell Phone <span>*</span></ion-label>
-                    <ion-input type="number" maxlength="10" name="cPhone"  formControlName="cPhone"></ion-input>
+                    <ion-input type="number" maxlength="10" name="cPhone" formControlName="cPhone"></ion-input>
                 </ion-item>
-                <p [hidden]="myForm.controls.cPhone.valid" danger padding-left style="color: red" >Cell Phone cannot be empty</p>
+                <p [hidden]="myForm.controls.cPhone.valid" danger padding-left style="color: red">Cell Phone cannot be empty</p>
 
                 <ion-item>
                     <ion-label floating>DL Number <span>*</span></ion-label>
-                    <ion-input type="text" name="DLNumber"  formControlName="DLNumber"></ion-input>
+                    <ion-input type="text" name="DLNumber" formControlName="DLNumber"></ion-input>
                 </ion-item>
-                <p [hidden]="myForm.controls.DLNumber.valid" danger padding-left style="color: red" >DLNumber cannot be empty</p>
+                <p [hidden]="myForm.controls.DLNumber.valid" danger padding-left style="color: red">DLNumber cannot be empty</p>
 
                 <ion-item>
                     <ion-label floating>Address Line 1</ion-label>

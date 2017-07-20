@@ -9,10 +9,12 @@ import { NavController, NavParams } from 'ionic-angular';
 export class User {
   userId: any;
   userName: any;
+  isDealer:boolean;
 
-  constructor(userId: string, userName: string) {
+  constructor(userId: string, userName: string,isDealer:boolean) {
     this.userId = userId;
     this.userName = userName;
+    this.isDealer=isDealer;
   }
 }
 
@@ -44,7 +46,7 @@ export class AuthService {
     public loadUserDetails(credentials)
     {        
       console.log(this._http.get('http://172.31.109.204:81/api/User/Validate/' + credentials.email + "/" + credentials.password).map(res => res.json()).subscribe(result=>{
-       this.currentUser = new User(result.userInfo.Id,result.userInfo.UserName);
+       this.currentUser = new User(result.userInfo.Id,result.userInfo.UserName,result.userInfo.IsDealer);
        console.log(this.currentUser);
     }
       ));

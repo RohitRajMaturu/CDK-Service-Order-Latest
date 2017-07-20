@@ -1,22 +1,22 @@
-<ion-content class="login-content" padding>
+<ion-content class="login-content" style="background-color:white" padding>
   <ion-row class="logo-row">
     <ion-col></ion-col>
     <ion-col width-67>
-      <img src="http://placehold.it/300x200"/>
+      <img src="https://www.illinoistech.org/images/uploads/Company%20Logos/CDK_Global.png"/>
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
-  <div class="login-box">
+  <div class="login-box" style="background: #747474;border-radius: 20px!important;">
     <form #registerForm="ngForm">
       <ion-row>
         <ion-col>
           <ion-list inset>
             
-            <ion-item>
+            <ion-item style="border-radius: 10px!important">
               <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
             </ion-item>
             
-            <ion-item>
+            <ion-item style="border-radius: 10px!important">
               <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
             </ion-item>
             
@@ -26,7 +26,7 @@
       
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" (click)="login()">Login</button>
+          <button ion-button class="submit-btn" full type="submit" (click)="login()" style="border-radius: 10px!important;background: #10aada">Login</button>
           <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button>
         </ion-col>
       </ion-row>
