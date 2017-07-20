@@ -1,0 +1,31 @@
+<!--
+  Generated template for the SohistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>My SO History</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let so of userso">
+    <ion-card-header>
+      <b>Service Order Number: {{so.ServiceOrderId}}</b>
+      <!-- <ion-label  hidden="true" >{{so.VehicleId}}</ion-label> -->
+    </ion-card-header>
+    <ion-card-content>
+      <img style="height: 150px;width: 1500px;" src="https://services.edmunds-media.com/image-service/media-ed/ximm/?quality=85&image=/non-make/ot/ot_32712129_300.jpg"
+      />
+      <b>Comments:{{so.Comments}}</b>
+      <br>
+      <b>Status: {{so.Status.StatusDesc}}</b>
+      <button ion-button small  (click)="ViewselectedVehicle(so.ServiceOrderId)">View</button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

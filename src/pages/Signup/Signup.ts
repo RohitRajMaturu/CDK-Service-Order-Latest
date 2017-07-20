@@ -5,24 +5,26 @@ import { FormBuilder, Validators } from '@angular/forms'
 
 @Component({
   selector: 'page-Signup',
-  templateUrl: 'Signup.html',
+  templateUrl: 'Signup.html'
 })
 export class Signup {
-  createSuccess = true; myForm: any;
-mandatefields: string[];
-myData: any;
+  createSuccess = true; 
+  myForm: any;
+  mandatefields: string[];
+  myData: any;
 
-constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService, private alertCtrl: AlertController, private builder: FormBuilder) {
+constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthService, public alertCtrl: AlertController, private builder: FormBuilder) {
   this.myForm = builder.group({
     'uName': ['', Validators.required],
-    'fName': [''], 'mName': [''],
+    'fName': [''], 
+    'mName': [''],
     'lName': ['',Validators.required],
     'cPhone': ['', Validators.required],
     'gender':['m'],
     'DLNumber': ['', Validators.required],
     'Add1': [''], 'Add2': [''], 'City': [''], 'County': [''], 'zpCode': ['']
 
-  })
+  });
   this.mandatefields= ['uName', 'lname', 'cPhone', 'DLNumber'];
 }
 

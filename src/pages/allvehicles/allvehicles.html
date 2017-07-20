@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>My Vehicles</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let car of cars">
+    <ion-card-header>
+      <!--<div>
+        <div style="text-align: left">
+        </div>
+        <div style="text-align: right" clear="none">
+         
+        </div>
+      </div>-->
+      <b>{{car.Make}}</b>
+      <ion-label hidden="true">{{car.VehicleId}}</ion-label>
+      <div style="text-align: right;margin-top: -7%;">
+        <button ion-button small item-right (click)="DeleteSelectedVehicle(car.VehicleId)">
+        <ion-icon name="trash"></ion-icon>
+        </button>
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="https://services.edmunds-media.com/image-service/media-ed/ximm/?quality=85&image=/non-make/ot/ot_32712129_300.jpg"
+      />
+      <b>Make:{{car.Make}}</b><br>
+      <b>Model:{{car.Model}}</b><br>
+      <b>VIN:{{car.VIN}}</b><br>
+      <b>Year:{{car.Year}}</b>
+      <br>
+      <b>Color:{{car.Color}}</b><br>
+      <b>Transmission: {{car.TransmissionName}}</b>
+    </ion-card-content>
+  </ion-card>
+
+<button ion-button full class="button" (click)="goToAddVehcilePage()">
+        Add New Vehicle
+      </button>
+
+
+</ion-content>

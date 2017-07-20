@@ -1,0 +1,123 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add New Customer</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+
+    <form  [formGroup]="myForm">
+
+
+      <ion-list>
+        <h2>Customer Details
+          <ion-icon name="people"></ion-icon>
+        </h2>
+        <ion-item>
+          <ion-label floating>Username/Email Id <span>*</span> </ion-label>
+          <ion-input name="uName" formControlName="uName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>First Name</ion-label>
+          <ion-input name="fName" type="text" formControlName="fName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Middle Name</ion-label>
+          <ion-input name="mName" formControlName="mName" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Last Name <span>*</span></ion-label>
+          <ion-input type="text" name="lName" formControlName="lName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Gender</ion-label>
+          <ion-select name="gender" formControlName="gender">
+            <ion-option value="f">Female</ion-option>
+            <ion-option selected value="m">Male</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Cell Phone <span>*</span></ion-label>
+          <ion-input type="number" maxlength="10" name="cPhone" formControlName="cPhone"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>DL Number <span>*</span></ion-label>
+          <ion-input type="text" name="DLNumber" formControlName="DLNumber"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Address Line 1</ion-label>
+          <ion-input type="text" aria-multiline="true" name="Add1" formControlName="Add1"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Address Line 2</ion-label>
+          <ion-input type="text" name="Add2" formControlName="Add2"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>City</ion-label>
+          <ion-input type="text" name="City" formControlName="City"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>County</ion-label>
+          <ion-input type="text" name="County" formControlName="County"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>ZipCode</ion-label>
+          <ion-input type="text" name="zpCode" formControlName="zpCode"></ion-input>
+        </ion-item>
+      </ion-list>
+<br>
+      <h2>Vehicle Details
+        <ion-icon name="car"></ion-icon>
+      </h2>
+      <ion-item>
+        <ion-label floating>VIN</ion-label>
+        <button ion-button small item-right clear style="margin-top: 10%;" (click)='getVehicledetails(VIN)'> Decode
+          </button>
+        <ion-input name="VIN" formControlName="VIN"></ion-input>
+      </ion-item>
+
+      <ion-list *ngFor="let item of VINDetails">
+
+        <ion-item>
+          <ion-label floating>Make</ion-label>
+          <ion-input name="Make" [(ngModel)]="item.Make" formControlName="Make"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Model</ion-label>
+          <ion-input name="Model" [(ngModel)]="item.Model" formControlName="Model"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Year</ion-label>
+          <ion-input name="Year" [(ngModel)]="item.Year" formControlName="Year"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Color</ion-label>
+          <ion-input name="Color" [(ngModel)]="item.Color" formControlName="Color"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Transmission</ion-label>
+          <ion-input name="Transmission" [(ngModel)]="item.Transmission" formControlName="Transmission"></ion-input>
+        </ion-item>
+      </ion-list>
+
+
+      <div text-center>
+        <button block ion-button large [disabled]="isDecodeClicked" (click)="registerCustomer(myForm)">Create</button>
+      </div>
+
+
+
+
+
+    </form>
+  </div>
+</ion-content>

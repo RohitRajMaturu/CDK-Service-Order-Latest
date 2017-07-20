@@ -33,12 +33,12 @@ export class LoginPage {
     public login() {
         this.showLoading()
         this.auth.login(this.registerCredentials).subscribe(allowed => {
-            if (allowed) {
-                this.nav.setRoot(HomePage);
+            if (allowed.success) {   
+                this.auth.loadUserDetails(this.registerCredentials);            
+                this.nav.setRoot(HomePage,{credentials:this.registerCredentials});
             } else {
-                //this.showError("Access Denied");
-                Observable.throw("Invalid Credentials");
-                
+                this.showError(allowed.message);
+                //Observable.throw("Invalid Credentials");                
             }
         },
             error => {

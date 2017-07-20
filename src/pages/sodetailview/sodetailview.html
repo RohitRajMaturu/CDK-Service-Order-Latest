@@ -1,0 +1,63 @@
+<!--
+  Generated template for the SodetailviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Service Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let so of sodetail">
+    <ion-card-header>
+      <b>Service Order Number: {{so.ServiceOrderId}}</b>
+      <!-- <ion-label  hidden="true" >{{so.VehicleId}}</ion-label> -->
+    </ion-card-header>
+    <ion-card-content>
+      <b>DealerName:{{so.Dealer.DealerName}}</b>
+      <br>
+      <b>Year: {{so.Vehicle.Year}}</b>
+      <br>
+      <b>Make: {{so.Vehicle.Make}}</b>
+      <br>
+      <b>Model: {{so.Vehicle.Model}}</b>
+      <br>
+      <b>Color: {{so.Vehicle.Color}}</b>
+      <br>
+      <b>VIN: {{so.Vehicle.VIN}}</b>
+      <br>
+      <b>Services Opted:{{so.ServicesOpted}}</b>
+      <br>
+
+
+
+      <b style="color:brown">Status: {{so.Status.StatusDesc}}</b>
+      <br>
+      <b>Comments:{{so.Comments}}</b>
+      <br>
+
+    </ion-card-content>
+
+    <ion-item *ngIf="so.Status.StatusId != 4">
+      <ion-label style="top:0%">Comments</ion-label>
+      <ion-textarea [(ngModel)]="soComments" value="" type="text" class="textarea1" rows="5" placeholder="Enter Comments"
+        name="soComments" style="height:40%;"></ion-textarea>
+    </ion-item>
+
+    <ion-row *ngIf="so.Status.StatusId != 4">
+      <ion-col class="signup-col">
+        <button ion-button class="submit-btn" full type="submit" (click)="UpdateComments()">Submit</button>
+        <button ion-button class="register-btn" block clear (click)="cancelSO()">Cancel</button>
+
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

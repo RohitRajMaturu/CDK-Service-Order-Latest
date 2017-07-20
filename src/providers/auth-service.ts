@@ -1,36 +1,59 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
- 
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { NavController, NavParams } from 'ionic-angular';
+
+
 export class User {
-  name: string;
-  email: string;
- 
-  constructor(name: string, email: string) {
-    this.name = name;
-    this.email = email;
+  userId: any;
+  userName: any;
+
+  constructor(userId: string, userName: string) {
+    this.userId = userId;
+    this.userName = userName;
   }
 }
- 
+
 @Injectable()
 export class AuthService {
   currentUser: User;
- 
+  returnValue: any;
+
+  constructor(public _http: Http) { }
+
   public login(credentials) {
     if (credentials.email === '' || credentials.password === '') {
       return Observable.throw("Please insert credentials");
     } else {
-      return Observable.create(observer => {
-        // At this point make a request to your backend to make a real check!
-        let access =true; //(credentials.password === "pass" && credentials.email === "email");
-        this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(access);
-        observer.complete();
-      });
+      return this.isValidUser(credentials);
+
+      //return this.returnValue;
+      // return Observable.create(observer => {
+      //   // At this point make a request to your backend to make a real check!
+      //   let access =this.isValidUser(credentials); //(credentials.password === "pass" && credentials.email === "email");
+      //   this.currentUser = new User('Simon', 'saimon@devdactic.com',);
+      //   observer.next(access);
+      //   observer.complete();
+      // });
     }
+
+    
   }
- 
+    public loadUserDetails(credentials)
+    {        
+      console.log(this._http.get('http://172.31.109.204:81/api/User/Validate/' + credentials.email + "/" + credentials.password).map(res => res.json()).subscribe(result=>{
+       this.currentUser = new User(result.userInfo.Id,result.userInfo.UserName);
+       console.log(this.currentUser);
+    }
+      ));
+    }
+  public isValidUser(credentials) {
+    return this._http.get('http://172.31.109.204:81/api/User/Validate/' + credentials.email + "/" + credentials.password).map(res => res.json());
+
+  }
+
   public register(credentials) {
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
@@ -42,18 +65,15 @@ export class AuthService {
       });
     }
   }
- 
 
 
-  public getUserInfo() : User {
+
+  public getUserInfo(): User {
     return this.currentUser;
   }
- 
+
   public logout() {
-    return Observable.create(observer => {
-      this.currentUser = null;
-      observer.next(true);
-      observer.complete();
-    });
+   this.currentUser=null;
+   //this.navCtrl.setRoot(LoginPage);
   }
 }

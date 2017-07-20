@@ -27,36 +27,41 @@
             <ion-item>
               <ion-label fixed>Location</ion-label>
               <ion-select (ionChange)='locationChange()' [(ngModel)]="soDetails.selectedLocation" name="Location">
-                <ion-option *ngFor="let item of items;" [value]="item.title">{{item.title}}</ion-option>
+                <ion-option *ngFor="let item of Locations;" [value]="item.LocationId">{{item.LocationName}}</ion-option>
               </ion-select>
             </ion-item>
             <ion-item>
               <ion-label fixed>Vehicle</ion-label>
               <ion-select [(ngModel)]="soDetails.selectedVehicle" name="Vehicle">
-                <ion-option *ngFor="let vehicle of items;" [value]="vehicle.title">{{vehicle.title}}</ion-option>
+                <ion-option *ngFor="let vehicle of vehicles;" [value]="vehicle.VehicleId">{{vehicle.Make}} | {{vehicle.Model}} | {{vehicle.Year}} </ion-option>
               </ion-select>
             </ion-item>
             <ion-item>
               <ion-label fixed>Dealer</ion-label>
               <ion-select [(ngModel)]="soDetails.selectedDealer" name="Dealer">
-                <ion-option *ngFor="let dealer of Dealers;" [value]="dealer.title">{{dealer.title}}</ion-option>
+                <ion-option *ngFor="let dealer of Dealers;" [value]="dealer.DealerId">{{dealer.DealerName}}</ion-option>
               </ion-select>
             </ion-item>
-            <h4>Services Provided</h4>
+            <h4>Services</h4>
 
-            <ion-item *ngFor="let cbItem of cbArr">
-              <!-- <label for="options">Options :</label> -->
-              <!-- <div *ngFor="let cbItem of cbArr"> -->
-                <label>
+<!-- ng-click="clickItem(item); $event.stopPropagation();" -->
+            <!-- <label>
               <input type="checkbox"
                     name="options"
                     value="{{cbItem}}"
                     [checked]="cbChecked.indexOf(cbItem) >= 0"
                     (change)="updateCheckedOptions(cbItem, $event)"/>
               {{cbItem}}
-            </label>
-            <!-- </div> -->
+            </label> -->
+
+            <ion-item *ngFor="let item of cbArr" item="item">
+              <label class="checkbox">
+                 <input type="checkbox"  (change)="updateCheckedOptions(item, $event)" ng-model="item.checked">
+            </label> {{ item.ServiceDesc }}
             </ion-item>
+
+            <!-- </div> -->
+            <!-- </ion-item> -->
 
             <!-- <ion-item>
                <!-- <ion-label></ion-label> 
@@ -66,12 +71,7 @@
                   <ion-checkbox color="dark" checked="true"></ion-checkbox>
             </ion-item> -->
             <!-- 
-            <ion-item *ngFor="let item of items" name="item">
-                <label class="checkbox">
-                    <ion-checkbox color="dark" checked="true"> Item {{item.title}} </ion-checkbox>
-                  <!-- <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked"> 
-                </label>                   
-           </ion-item> 
+          
             
           (click)="edit($event,item)"
         
@@ -97,12 +97,13 @@
         (ionChange)="updateCheckedOptions(item, $event)" -->
             <ion-item>
               <ion-label style="top:0%">Comments</ion-label>
-              <ion-textarea [(ngModel)]="soComments" value="soComments" type="text" class="textarea1" rows="5" placeholder="Enter Comments" name="comments" style="height:40%;"></ion-textarea>
+              <ion-textarea [(ngModel)]="soComments" value="soComments" type="text" class="textarea1" rows="5" placeholder="Enter Comments"
+                name="comments" style="height:40%;"></ion-textarea>
             </ion-item>
             <h2>Schedule Appointment</h2>
             <ion-item>
               <ion-label>Date</ion-label>
-              <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM/DD/YYYY" [(ngModel)]="soDate" name="date"></ion-datetime>
+              <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="YYYY-MM-DD" [(ngModel)]="soDate" name="date"></ion-datetime>
             </ion-item>
             <ion-item>
               <ion-label>Time</ion-label>
@@ -116,14 +117,14 @@
 
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" (click)="createSO()">Login</button>
+          <button ion-button class="submit-btn" full type="submit" (click)="createSO()">Create SO</button>
           <button ion-button class="register-btn" block clear (click)="cancelSO()">Cancel</button>
 
         </ion-col>
       </ion-row>
 
     </form>
-    </div>
+  </div>
 </ion-content>
 <!-- <ion-content class="login-content" padding>
 <ion-list>

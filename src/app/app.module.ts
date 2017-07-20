@@ -19,6 +19,12 @@ import { Signup } from '../pages/Signup/Signup';
 import { LoginPage } from '../pages/login/login';
 import { VehiclePage } from '../pages/vehicle/vehicle';
 import { SOPage } from '../pages/so/so';
+import{SohistoryPage} from '../pages/sohistory/sohistory';
+import {SodetailviewPage} from '../pages//sodetailview/sodetailview';
+import {LogoutPage} from '../pages/logout/logout';
+import { AllvehiclesPage } from '../pages/allvehicles/allvehicles';
+import { AddNewCustomerPage } from '../pages/add-new-customer/add-new-customer';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,12 @@ import { SOPage } from '../pages/so/so';
     Signup,
     LoginPage,
     VehiclePage,
-    SOPage
+    SOPage,
+    SohistoryPage,
+    SodetailviewPage,
+    AllvehiclesPage,
+    AddNewCustomerPage,
+    LogoutPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +56,12 @@ import { SOPage } from '../pages/so/so';
     Signup,
     LoginPage,
     VehiclePage,
-    SOPage
+    SOPage,
+    SohistoryPage,
+    SodetailviewPage,
+    AllvehiclesPage,
+    AddNewCustomerPage,
+    LogoutPage
   ],
   providers: [
     StatusBar,
@@ -53,7 +69,8 @@ import { SOPage } from '../pages/so/so';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     commonAPIService,
-    SoserviceProvider
+    SoserviceProvider,
+    BarcodeScanner
   ]
 })
 export class AppModule { }

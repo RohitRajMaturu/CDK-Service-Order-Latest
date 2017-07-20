@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/Observable/throw';
@@ -15,46 +15,59 @@ import 'rxjs/add/Observable/throw';
 */
 @Injectable()
 export class SoserviceProvider {
-  public data:any;
+  public data: any;
   constructor(private _http: Http) {
     console.log('Hello SoserviceProvider Provider');
   }
-load() {
- console.log('load fired');
-  return this._http.get('http://172.31.109.204:81/api/Location/GetAllLocations').map(res => res.json());
-  //http://172.31.110.225:81/api/Vehicle/GetUserVehicles/6
-  // if (this.data) {
-  //   // already loaded data
-  //   console.log('from service');
-  //   return Promise.resolve(this.data);
-  // }
-
-  // // don't have the data yet
-  // return new Promise(resolve => {
-  //   // We're using Angular HTTP provider to request the data,
-  //   // then on the response, it'll map the JSON data to a parsed JS object.
-  //   // Next, we process the data and resolve the promise with the new data.
-  //   this._http.get("https://jsonplaceholder.typicode.com/posts/1")
-  //     .map(res => res.json());
-  // });
-}
-
+  load() {
+    console.log('load fired');
+    return this._http.get('http://172.31.109.204:81/api/Location/GetAllLocations').map(res => res.json());
   }
 
-  // don't have the data yet
-  // return new Promise(resolve => {
-  //   // We're using Angular HTTP provider to request the data,
-  //   // then on the response, it'll map the JSON data to a parsed JS object.
-  //   // Next, we process the data and resolve the promise with the new data.
-  //   this.http.get('../mockdata.json')
-  //     .map(res => res.json())
-  //     .subscribe(data => {
-  //       // we've got back the raw data, now generate the core schedule data
-  //       // and save the data for later reference
-  //       this.data = data;
-  //       console.log(data);
-  //       resolve(this.data);
-  //     });
-  // });
+  loadDealersbasedonLocations(locationId) {
+    return this._http.get('http://172.31.109.204:81/api/Dealer/GetDealersByLocation/' + locationId).map(res => res.json());
+  }
 
+  loadUserVehicles(userId) {
+    return this._http.get('http://172.31.109.204:81/api/Vehicle/GetUserVehicles/' + userId).map(res => res.json());
+  }
+
+  loadBasicServicesProvided() {
+    return this._http.get('http://172.31.109.204:81/api/ServiceOrder/GetBasicServicesProvided').map(res => res.json());
+  }
+  postsoDetails(postsoDetails) {
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+    let options = new RequestOptions({ headers: headers });
+
+    this._http.post("http://172.31.109.204:81/api/ServiceOrder/CreateServiceOrder", postsoDetails).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);// Error getting the data
+    });
+  }
+  loadsobasedonSo() {
+    return this._http.get('http://172.31.109.204:81/api/ServiceOrder/GetUserServiceOrderDetails/6').map(res => res.json());
+  }
+  loadsoInDetail(soId) {
+    return this._http.get('http://172.31.109.204:81/api/ServiceOrder/GetServiceOrderDetails/' + soId).map(res => res.json());
+  }
+
+  updateComments(sid,comments) {
+    var commentsObj = {
+      serviceId:sid,
+      comments: comments
+    }
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+    let options = new RequestOptions({ headers: headers });
+    this._http.post("http://172.31.109.204:81/api/ServiceOrder/UpdateServiceComments", commentsObj).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);// Error getting the data
+    });
+  }
+}
 
